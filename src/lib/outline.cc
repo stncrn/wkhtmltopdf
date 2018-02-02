@@ -190,7 +190,7 @@ bool Outline::replaceWebPage(int document,
 							 QVector<QPair<QWebElement, QString> > & local,
 							 QHash<QString, QWebElement> & anchors) {
 	QMap< QPair<int, QPair<qreal,qreal> >, QWebElement> headings;
-	foreach (const QWebElement & e, frame->findAllElements("h1,h2,h3,h4,h5,h6,h7,h8,h9")) {
+	foreach (const QWebElement & e, frame->findAllElements("h1,h2,h3,h4,h5")) {
 		QPair<int, QRectF> location = wp.elementLocation(e);
 		headings[ qMakePair(location.first, qMakePair(location.second.y(), location.second.x()) ) ] = e;
 	}
