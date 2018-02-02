@@ -1,6 +1,6 @@
 Clone this repository by running the following command:
 
-    git clone --recursive https://github.com/wkhtmltopdf/wkhtmltopdf.git
+    git clone --recursive https://github.com/stncrn/wkhtmltopdf.git
 
 If you are on Windows, make sure that you are cloning in a location without
 spaces/special characters in the name. In case you already have a cloned
@@ -39,10 +39,10 @@ target distribution -- you will need to first setup the build environment
 and then only you can perform the build for a 32-bit or 64-bit binary.
 The following targets are currently supported:
 
-Target         | Setup of Build Environment                    | Building 32-bit binaries                 |  Building 64-bit binaries
-------         | --------------------------                    | ------------------------                 |  ------------------------
-Generic        | `sudo scripts/build.py setup-schroot-generic` | `scripts/build.py linux-generic-i386`    | `scripts/build.py linux-generic-amd64`
-MinGW-w64      | `sudo scripts/build.py setup-mingw-w64`       | `scripts/build.py mingw-w64-cross-win32` | `scripts/build.py mingw-w64-cross-win64`
+| Target    | Setup of Build Environment               | Building 32-bit binaries                 | Building 64-bit binaries                 |
+| --------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| Generic   | `sudo scripts/build.py setup-schroot-generic` | `scripts/build.py linux-generic-i386`    | `scripts/build.py linux-generic-amd64`   |
+| MinGW-w64 | `sudo scripts/build.py setup-mingw-w64`  | `scripts/build.py mingw-w64-cross-win32` | `scripts/build.py mingw-w64-cross-win64` |
 
 The MinGW-w64 toolchain can cross-compile 32/64-bit Windows binaries from
 Linux -- it is useful for targeting Windows XP/Windows 2003, which are not
@@ -71,6 +71,32 @@ to build either the 32-bit or 64-bit binaries, which should generate a
 native package (either DEB or RPM, depending on the distribution) in the
 `static-build/` folder.
 
+## Details for Ubuntu Trusty 14.04
+
+Ubuntu 14.04 server comes without python. Install (along with other stuff) it using :
+
+```bash
+sudo apt install python schroot rinse
+```
+
+Clone the source files :
+
+```bash
+git clone --recursive https://github.com/stncrn/wkhtmltopdf.git
+```
+
+Install the build environment (takes a long time, and needs internet access, as it is a complete EL6 virtual environment setup) :
+
+```bash
+sudo scripts/build.py setup-schroot-generic
+```
+
+Run the build. As said in the paragraph above, don't run this directly as root.
+
+```bash
+scripts/build.py linux-generic-amd64
+```
+
 Windows
 -------
 
@@ -82,10 +108,10 @@ Windows
 * Make sure that you can run "git". If not, add it to the PATH or reinstall
   with option "Run Git from the Windows Command Prompt".
 
-Target          | Building 32-bit binaries               |  Building 64-bit binaries
-------          | ------------------------               |  ------------------------
-MSVC 2013       | `scripts\build.py msvc2013-win32`      | `scripts/build.py msvc2013-win64`
-MSVC 2015       | `scripts\build.py msvc2015-win32`      | `scripts/build.py msvc2015-win64`
+| Target    | Building 32-bit binaries          | Building 64-bit binaries          |
+| --------- | --------------------------------- | --------------------------------- |
+| MSVC 2013 | `scripts\build.py msvc2013-win32` | `scripts/build.py msvc2013-win64` |
+| MSVC 2015 | `scripts\build.py msvc2015-win32` | `scripts/build.py msvc2015-win64` |
 
 During the build, a working internet connection is required to download and
 compile the dependent libraries (e.g. OpenSSL). The output installers should
@@ -103,10 +129,10 @@ latest Xcode for your OS X version. Additionally, you will need to run the comma
 `sudo gem install fpm --no-ri --no-rdoc` in the terminal to install
 [fpm](https://github.com/jordansissel/fpm), which is used for building the package.
 
-Target          | Build Command
-------          | -------------
-32-bit Carbon   | `scripts/build.py osx-carbon-i386`
-64-bit Cocoa    | `scripts/build.py osx-cocoa-x86-64`
+| Target        | Build Command                       |
+| ------------- | ----------------------------------- |
+| 32-bit Carbon | `scripts/build.py osx-carbon-i386`  |
+| 64-bit Cocoa  | `scripts/build.py osx-cocoa-x86-64` |
 
 During the build, a working internet connection is required to download and
 compile the dependent libraries (e.g. libpng and libjpeg). The output package
